@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="AssociazioneSportiva:javaEEApplication exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/AssociazioneSportiva_javaEEApplication_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="AssociazioneSportiva/javaeeApplication/javaEEApplication" />
+      <element id="artifact" artifact-name="AssociazioneSportiva:war" />
+      <element id="jpa-descriptors" facet="AssociazioneSportiva/jpa/JPA" />
+    </root>
+  </artifact>
+</component>

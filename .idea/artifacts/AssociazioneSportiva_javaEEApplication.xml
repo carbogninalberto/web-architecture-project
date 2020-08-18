@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="ear" name="AssociazioneSportiva:javaEEApplication">
+    <output-path>$PROJECT_DIR$/out/artifacts/AssociazioneSportiva_javaEEApplication</output-path>
+    <root id="archive" name="AssociazioneSportiva_javaEEApplication.ear">
+      <element id="artifact" artifact-name="AssociazioneSportiva:javaEEApplication exploded" />
+      <element id="artifact" artifact-name="AssociazioneSportiva:war" />
+    </root>
+  </artifact>
+</component>
