@@ -7,10 +7,14 @@ import javax.ejb.Stateless;
 @LocalBean
 public class HelloWorldBean {
 
+    private int counter;
+
     public HelloWorldBean() {
+        this.counter = 0;
     }
 
     public String sayHello(String name) {
-        return "Hello World! You are " + name;
+        counter++;
+        return "Hello World! You are " + name + " amd counter is " + counter;
     }
 }
