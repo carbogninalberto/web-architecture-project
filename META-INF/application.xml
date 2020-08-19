@@ -7,7 +7,7 @@
     <module id="AssociazioneSportiva-Web">
         <web>
             <web-uri>AssociazioneSportiva-1.0.war</web-uri>
-            <context-root>AssociazioneSportiva</context-root>
+            <context-root>/AssociazioneSportiva</context-root>
         </web>
     </module>
 </application>

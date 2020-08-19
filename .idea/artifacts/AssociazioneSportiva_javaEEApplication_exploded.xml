@@ -2,9 +2,11 @@
   <artifact type="exploded-ear" name="AssociazioneSportiva:javaEEApplication exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/AssociazioneSportiva_javaEEApplication_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="AssociazioneSportiva/javaeeApplication/javaEEApplication" />
+      <element id="archive" name="AssociazioneSportiva-1.0.war">
+        <element id="artifact" artifact-name="AssociazioneSportiva:war exploded" />
+      </element>
       <element id="artifact" artifact-name="AssociazioneSportiva:war" />
-      <element id="jpa-descriptors" facet="AssociazioneSportiva/jpa/JPA" />
+      <element id="artifact" artifact-name="AssociazioneSportiva:javaEEApplication" />
     </root>
   </artifact>
 </component>
