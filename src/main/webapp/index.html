@@ -17,7 +17,7 @@
 
 </head>
 <body ng-app="app" ng-controller="appController">
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav ng-if="$root.showNavBar" class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="#!">
             <span class="circle"><span class="circle"
@@ -49,9 +49,10 @@
     <div class="content has-text-centered">
 
         <p>
-            <strong>Sportif </strong> (Associazione Sportiva) by <a href="https://github.com/carbogninalberto">Alberto
-            Carbognin</a>.
-            <strong>Web Architectures</strong> course project.
+            <strong>Sportif </strong>(Associazione Sportiva) by <a href="https://github.com/carbogninalberto">Alberto
+            Carbognin</a> - <strong>Web Architectures</strong> project course - <strong>unsplash</strong> (<a href="https://unsplash.com/">images</a>)
+            <br>
+            &bull; <a href="#!abouts"> About </a> - <a href="#!abouts"> Privacy </a> &bull;
         </p>
 
 

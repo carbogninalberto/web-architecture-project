@@ -1,7 +1,8 @@
 package com.carbogninalberto.servlet.user;
 
-import com.carbogninalberto.ejb.UserBean;
-import com.carbogninalberto.entity.User;
+import com.carbogninalberto.ejb.UtenteBean;
+import com.carbogninalberto.entity.Utente;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,30 +17,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/user/list"})
-public class ListUsers extends HttpServlet {
+public class ListUtenti extends HttpServlet {
     @EJB
-    UserBean uBean;
+    UtenteBean uBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*
-        final String dir = System.getProperty("user.dir");
-        System.out.println("current dir = " + dir);
-        */
 
-        List<User> users = uBean.listUsers();
+        final String dir = System.getProperty("jboss.server.base.dir"); //user.dir
+        System.out.println("current dir = " + dir);
+
+        //listUserJDBC();
+
+        //System.out.println("get " + uBean.getUser("fede@gmail.com").getName());
+
+        List<Utente> utenti = uBean.listUsers();
         List<String> userNames = new ArrayList<>();
 
-        for (User userTmp : users) {
-            userNames.add("{" + userTmp.getName() + ", " + userTmp.getEmail() + "}" );
+        for (Utente utenteTmp : utenti) {
+            userNames.add("{" + utenteTmp.getName() + ", " + utenteTmp.getEmail() + "}" );
         }
+        // init mapper
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonResponse = mapper.writer().writeValueAsString(utenti);
+        //Object to JSON Conversion
+        //Student student = mapper.readValue(jsonString, Student.class);
+
+        resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
-        out.println("users: " + userNames.toString());
+        //out.println("users: " + userNames.toString());
+        out.println(jsonResponse);
+        out.close();
+        out.flush();
     }
 
     protected void listUserJDBC() {
         String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-        String DB_URL = "jdbc:derby:C:/Users/Alberto/Desktop/Bakney/AssociazioneSportiva/src/main/resources/database;create=true;password=admin;user=admin";
+        String DB_URL = "jdbc:derby:C:/Users/Alberto/Desktop/Bakney/AssociazioneSportiva/src/main/resources/database;create=true";
         //  Database credentials
         final String USER = "admin";
         final String PASS = "admin";
@@ -56,18 +70,21 @@ public class ListUsers extends HttpServlet {
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
             String sql;
-            sql = "SELECT t.* FROM ADMIN.\"User\" t";
+            sql = "SELECT t.email, t.name FROM ADMIN.\"Users\" t";
             ResultSet rs = stmt.executeQuery(sql);
             //STEP 5: Extract data from result set
+            System.out.println("fetch size:" + rs.getFetchSize());
             while(rs.next()) {
+                System.out.println("ok");
                 //Retrieve by column name
                 String email = rs.getString("email");
                 String name = rs.getString("name");
 
                 //Display values
-                System.out.print(email + " " + name);
+                System.out.println(email + " " + name);
             }
             //STEP 6: Clean-up environment
+            System.out.print("closing connection");
             rs.close();
             stmt.close();
             conn.close();

@@ -1,3 +1,4 @@
 routerApp.controller('loginViewController',
-    function($scope) {
+    function($scope, $rootScope) {
+        //$rootScope.showNavBar = false;
     });

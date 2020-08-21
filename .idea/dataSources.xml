@@ -7,5 +7,11 @@
       <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
       <jdbc-url>jdbc:derby:$PROJECT_DIR$/src/main/resources/database;create=true</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Apache Derby (Embedded) - sportif" uuid="5973e003-8039-4588-b99f-ffe1f591db5e">
+      <driver-ref>derby.embedded</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby:$PROJECT_DIR$/../../../../../JavaWebDev/sportif;create=true</jdbc-url>
+    </data-source>
   </component>
 </project>

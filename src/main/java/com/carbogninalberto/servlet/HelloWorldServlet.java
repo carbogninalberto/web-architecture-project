@@ -1,8 +1,8 @@
 package com.carbogninalberto.servlet;
 
 import com.carbogninalberto.ejb.HelloWorldBean;
-import com.carbogninalberto.ejb.UserBean;
-import com.carbogninalberto.entity.User;
+import com.carbogninalberto.ejb.UtenteBean;
+import com.carbogninalberto.entity.Utente;
 
 import javax.ejb.EJB;
 import javax.naming.Context;
@@ -24,7 +24,7 @@ public class HelloWorldServlet extends HttpServlet {
     HelloWorldBean myBean;
     HelloWorldBean hwBean;
     @EJB
-    UserBean uBean;
+    UtenteBean uBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,22 +34,23 @@ public class HelloWorldServlet extends HttpServlet {
         // JNDI instead of dependency injection for stateful ejbs
         try {
             Context ctx = new InitialContext();
-            hwBean = (HelloWorldBean) ctx.lookup("java:global/AssociazioneSportiva/AssociazioneSportiva/HelloWorldBean");
+            hwBean = (HelloWorldBean) ctx.lookup("java:global/AssociazioneSportiva/AssociazioneSportiva-1.0/HelloWorldBean");
             out.println("LOOKUP: " + hwBean.sayHello("JNDI Bean!"));
         } catch (Exception e) {
             out.println("Exception: " + e);
         }
-        /*
-        uBean.addUser(req.getParameter("name"), "Alberto Carbognin", "abcd");
-        List<User> users = uBean.listUsers();
+
+        uBean.addUtente(req.getParameter("name"), "Alberto Carbognin", "abcd");
+
+        List<Utente> utentes = uBean.listUsers();
         List<String> userNames = new ArrayList<>();
 
-        for (User userTmp : users) {
-            userNames.add("{" + userTmp.getName() + ", " + userTmp.getEmail() + "}" );
+        for (Utente utenteTmp : utentes) {
+            userNames.add("{" + utenteTmp.getName() + ", " + utenteTmp.getEmail() + "}" );
         }
 
         out.println("users: " + userNames.toString());
-        */
+
         out.println(myBean.sayHello(req.getParameter("name")));
     }
 }

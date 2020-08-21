@@ -19,38 +19,67 @@
     <schema id="12" parent="1" name="SYSPROC"/>
     <schema id="13" parent="1" name="SYSSTAT"/>
     <table id="14" parent="2" name="DERBYDB"/>
-    <table id="15" parent="2" name="User"/>
-    <column id="16" parent="14" name="NUM">
+    <table id="15" parent="2" name="UTENTE"/>
+    <table id="16" parent="2" name="User"/>
+    <column id="17" parent="14" name="NUM">
       <Position>1</Position>
       <DataType>INTEGER|4s</DataType>
     </column>
-    <column id="17" parent="14" name="ADDR">
+    <column id="18" parent="14" name="ADDR">
       <Position>2</Position>
       <DataType>VARCHAR(40)|12s</DataType>
     </column>
-    <column id="18" parent="15" name="EMAIL">
+    <column id="19" parent="15" name="EMAIL">
       <Position>1</Position>
       <DataType>VARCHAR(255)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="19" parent="15" name="NAME">
+    <column id="20" parent="15" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="21" parent="15" name="PASSWORD">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="22" parent="15" name="TIMESTAMP">
+      <Position>4</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="23" parent="15" name="SQL0000000000-a352c053-0174-0bb6-f70f-000002d7d760">
+      <ColNames>EMAIL</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="24" parent="15" name="SQL0000000000-a352c053-0174-0bb6-f70f-000002d7d760">
+      <ColNames>EMAIL</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="25" parent="16" name="EMAIL">
+      <Position>1</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="16" name="NAME">
       <Position>2</Position>
       <DataType>VARCHAR(255)|12s</DataType>
     </column>
-    <column id="20" parent="15" name="PASSWORD">
+    <column id="27" parent="16" name="PASSWORD">
       <Position>3</Position>
       <DataType>VARCHAR(255)|12s</DataType>
     </column>
-    <column id="21" parent="15" name="ID">
+    <column id="28" parent="16" name="ID">
       <Position>4</Position>
       <DataType>INTEGER|4s</DataType>
     </column>
-    <index id="22" parent="15" name="SQL200819013802400">
+    <index id="29" parent="16" name="SQL200819013802400">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>EMAIL</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="23" parent="15" name="TABLE_NAME_PK">
+    <key id="30" parent="16" name="TABLE_NAME_PK">
       <ColNames>EMAIL</ColNames>
       <Primary>1</Primary>
     </key>

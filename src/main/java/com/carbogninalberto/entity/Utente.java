@@ -1,27 +1,35 @@
 package com.carbogninalberto.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "User")
-public class User implements Serializable {
+@Table
+public class Utente implements Serializable {
 
     @Id
+    @GeneratedValue( strategy= GenerationType.AUTO )
     @Column(nullable = false)
+    private int uid;
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private int timestamp;
+    private boolean admin;
+    @Column(nullable = false)
+    private long timestamp;
 
-    public User() {
-        this.timestamp = (int) System.nanoTime();
+    public Utente() {
+        this.timestamp = (int) System.currentTimeMillis();
+        this.admin = false;
+    }
+    public Utente(int userId, boolean admin) {
+        this.uid = userId;
+        this.timestamp = (int) System.currentTimeMillis();
+        this.admin = admin;
     }
 
     public String getEmail() {
@@ -48,11 +56,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public int getTimestamp() {
-        return timestamp;
+    public boolean isAdmin() {
+        return admin;
     }
 
-    public void setTimestamp(int timestamp) {
-        this.timestamp = timestamp;
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }

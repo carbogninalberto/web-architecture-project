@@ -3,6 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/AssociazioneSportiva_javaEEApplication</output-path>
     <root id="archive" name="AssociazioneSportiva.ear">
       <element id="artifact" artifact-name="AssociazioneSportiva:war" />
+      <element id="directory" name="db">
+        <element id="dir-copy" path="$PROJECT_DIR$/../../../../../JavaWebDev/sportif" />
+      </element>
     </root>
   </artifact>
 </component>
