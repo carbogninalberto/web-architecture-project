@@ -1,4 +1,4 @@
-package com.carbogninalberto.obj;
+package com.carbogninalberto.util;
 
 import java.io.Serializable;
 

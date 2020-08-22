@@ -18,6 +18,8 @@ public class Utente implements Serializable {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
+    private String salt;
+    @Column(nullable = false)
     private boolean admin;
     @Column(nullable = false)
     private long timestamp;
@@ -56,11 +58,16 @@ public class Utente implements Serializable {
         this.password = password;
     }
 
-    public boolean isAdmin() {
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public boolean getAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
 }

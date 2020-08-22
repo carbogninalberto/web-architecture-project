@@ -1,4 +1,4 @@
-package com.carbogninalberto.servlet.user;
+package com.carbogninalberto.servlet.auth;
 
 import com.carbogninalberto.ejb.UtenteBean;
 import com.carbogninalberto.entity.Utente;
@@ -14,24 +14,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.MessageDigest;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/user", "/user/add"})
-public class UtentiServlet extends HttpServlet implements Logging {
+@WebServlet(urlPatterns = {"/login"})
+public class SessionServlet extends HttpServlet implements Logging {
 
     private UtenteBean utenteBean;
-    // Jackson Mapper
     private final ObjectMapper mapper = new ObjectMapper();
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-
-    }
 
     private void getBean() throws NamingException {
         Context ctx = new InitialContext();
@@ -40,31 +33,35 @@ public class UtentiServlet extends HttpServlet implements Logging {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // define response type
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
-        // try to get by JNDI the required bean
+
         try {
             getBean();
+
             // Obtaining the Body of the request
             BufferedReader body = req.getReader();
             // read the buffer and converting it to object
             Utente utente = mapper.readValue(body.lines().collect(Collectors.joining()), Utente.class);
 
-            // Business logic
-            utenteBean.addUtente(utente);
+            // business logic
+            boolean isPasswordOk = utenteBean.checkPasswordUtente(utente);
+            if (isPasswordOk) {
+                HttpSession session = req.getSession(true);
+                session.setAttribute("auth", utente.getEmail());
+                session.setAttribute("admin", utente.getAdmin());
+                session.setMaxInactiveInterval(3600 * 24 * 14);
 
-            // response
-            resp.setStatus(200);
-            Response msg = new Response("Utente Creato con Successo");
-            String msgJson = mapper.writeValueAsString(msg);
-            out.println(msgJson);
+
+                resp.setStatus(200);
+                Response msg = new Response("Logged in.");
+                String msgJson = mapper.writeValueAsString(msg);
+                out.println(msgJson);
+            } else {
+                throw new ServletException("Password is not matching.");
+            }
         } catch (Exception e) {
             getLogger().warning("Exception: " + e.getMessage());
 
