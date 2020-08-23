@@ -31,7 +31,6 @@ routerApp.controller('loginViewController',
                 url: '/AssociazioneSportiva-1.0/login',
                 data: {
                     email: $scope.utente.email,
-                    name: $scope.utente.name,
                     password: $scope.utente.password
                 },
                 processData: false

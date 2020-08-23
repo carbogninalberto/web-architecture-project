@@ -61,7 +61,7 @@ public class SessionServlet extends HttpServlet implements Logging {
                 String msgJson = mapper.writeValueAsString(msg);
                 out.println(msgJson);
             } else {
-                resp.setStatus(200);
+                resp.setStatus(500);
                 Response msg = new Response("Password is not matching.");
                 String msgJson = mapper.writeValueAsString(msg);
                 out.println(msgJson);

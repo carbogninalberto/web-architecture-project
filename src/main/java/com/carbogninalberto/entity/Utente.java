@@ -17,7 +17,6 @@ public class Utente implements Serializable {
     private String email;
     @Column(nullable = false)
     private String name;
-    @JsonIgnore
     @Column(nullable = false)
     private String password;
     @JsonIgnore

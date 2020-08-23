@@ -88,6 +88,7 @@ public class UtenteBean implements Serializable, Logging {
 
         // getting user in the database
         Utente tmpUtente = getUtente(utente.getEmail());
+        result.setUtente(tmpUtente);
         // check if a user was found
         if (tmpUtente != null) {
             try {

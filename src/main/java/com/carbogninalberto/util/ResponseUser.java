@@ -10,6 +10,7 @@ public class ResponseUser extends Response implements Serializable {
     public ResponseUser(String msg, Utente utente) {
         super(msg);
         this.utente = utente;
+        hidePassword();
     }
 
     public Utente getUtente() {
@@ -18,5 +19,9 @@ public class ResponseUser extends Response implements Serializable {
 
     public void setUtente(Utente utente) {
         this.utente = utente;
+    }
+
+    public void hidePassword() {
+        this.utente.setPassword(null);
     }
 }
