@@ -1,5 +1,7 @@
 package com.carbogninalberto.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -15,12 +17,15 @@ public class Utente implements Serializable {
     private String email;
     @Column(nullable = false)
     private String name;
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
+    @JsonIgnore
     @Column(nullable = false)
     private String salt;
     @Column(nullable = false)
     private boolean admin;
+    @JsonIgnore
     @Column(nullable = false)
     private long timestamp;
 

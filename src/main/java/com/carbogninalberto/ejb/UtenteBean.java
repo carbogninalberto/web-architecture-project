@@ -3,6 +3,7 @@ package com.carbogninalberto.ejb;
 
 import com.carbogninalberto.entity.Utente;
 import com.carbogninalberto.itf.Logging;
+import com.carbogninalberto.util.UserInfo;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -82,8 +83,9 @@ public class UtenteBean implements Serializable, Logging {
      * @param utente
      * @return
      */
-    public boolean checkPasswordUtente(Utente utente) {
-        boolean result = false;
+    public UserInfo checkPasswordUtente(Utente utente) {
+        UserInfo result = new UserInfo(false);
+
         // getting user in the database
         Utente tmpUtente = getUtente(utente.getEmail());
         // check if a user was found
@@ -92,11 +94,11 @@ public class UtenteBean implements Serializable, Logging {
                 // rebuilding hash for checking the password match
                 byte[] salt = Base64.getDecoder().decode(tmpUtente.getSalt());
                 byte[] hashedPassword = generateHash(utente.getPassword(), salt);
-                result = Base64.getEncoder().encodeToString(hashedPassword).equals(tmpUtente.getPassword());
+                result.setLogged(Base64.getEncoder().encodeToString(hashedPassword).equals(tmpUtente.getPassword()));
             } catch (Exception e) {
-                getLogger().warning("Exception: " + e.getMessage());            }
+                getLogger().warning("Exception: " + e.getMessage());
+            }
         }
-
 
         return result;
     }

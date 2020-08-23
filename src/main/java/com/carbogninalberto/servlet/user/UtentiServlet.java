@@ -62,7 +62,7 @@ public class UtentiServlet extends HttpServlet implements Logging {
 
             // response
             resp.setStatus(200);
-            Response msg = new Response("Utente Creato con Successo");
+            Response msg = new Response("Success! Click on Login now!");
             String msgJson = mapper.writeValueAsString(msg);
             out.println(msgJson);
         } catch (Exception e) {

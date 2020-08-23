@@ -4,6 +4,8 @@ import com.carbogninalberto.ejb.UtenteBean;
 import com.carbogninalberto.entity.Utente;
 import com.carbogninalberto.itf.Logging;
 import com.carbogninalberto.util.Response;
+import com.carbogninalberto.util.ResponseUser;
+import com.carbogninalberto.util.UserInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.naming.Context;
@@ -33,7 +35,7 @@ public class SessionServlet extends HttpServlet implements Logging {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // define response type
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
@@ -47,20 +49,22 @@ public class SessionServlet extends HttpServlet implements Logging {
             Utente utente = mapper.readValue(body.lines().collect(Collectors.joining()), Utente.class);
 
             // business logic
-            boolean isPasswordOk = utenteBean.checkPasswordUtente(utente);
-            if (isPasswordOk) {
+            UserInfo userInfo = utenteBean.checkPasswordUtente(utente);
+            if (userInfo.isLogged()) {
                 HttpSession session = req.getSession(true);
                 session.setAttribute("auth", utente.getEmail());
                 session.setAttribute("admin", utente.getAdmin());
                 session.setMaxInactiveInterval(3600 * 24 * 14);
 
-
                 resp.setStatus(200);
-                Response msg = new Response("Logged in.");
+                ResponseUser msg = new ResponseUser("Logged in. Redirecting...", userInfo.getUtente());
                 String msgJson = mapper.writeValueAsString(msg);
                 out.println(msgJson);
             } else {
-                throw new ServletException("Password is not matching.");
+                resp.setStatus(200);
+                Response msg = new Response("Password is not matching.");
+                String msgJson = mapper.writeValueAsString(msg);
+                out.println(msgJson);
             }
         } catch (Exception e) {
             getLogger().warning("Exception: " + e.getMessage());
