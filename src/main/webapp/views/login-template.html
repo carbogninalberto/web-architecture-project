@@ -1,31 +1,41 @@
 <!-- login-template.html -->
-<section class="section showcase-bg center-box" style="background-image: url('img/background_2.jpg')">
+<section ng-controller="loginViewController" class="section showcase-bg center-box" style="background-image: url('img/background_2.jpg')">
     <div class="container is-box-log center-box" style="background-color: white">
 
         <p class="title is-2 is-spaced" style="text-align: left; font-family: 'Arial'">Login</p>
 
         <div class="field">
             <p class="control has-icons-left has-icons-right">
-                <input class="input" type="email" placeholder="Email">
+                <input ng-model="utente.email" class="input" type="email" placeholder="Email">
                 <span class="icon is-small is-left">
-      <i class="fas fa-envelope"></i>
-    </span>
+                    <i class="fas fa-envelope"></i>
+                </span>
             </p>
         </div>
         <div class="field">
             <p class="control has-icons-left">
-                <input class="input" type="password" placeholder="Password">
+                <input ng-model="utente.password" class="input" type="password" placeholder="Password">
                 <span class="icon is-small is-left">
-      <i class="fas fa-lock"></i>
-    </span>
+                    <i class="fas fa-lock"></i>
+                </span>
             </p>
         </div>
         <div class="field" style="text-align: right">
             <p class="control">
-                <button class="button custom">
+                <button class="button custom" ng-click="login()">
                     Log in
                 </button>
             </p>
+        </div>
+
+        <div ng-show="error.status" class="notification is-danger">
+            <button class="delete" ng-click="reset()"></button>
+            {{error.msg}}
+        </div>
+
+        <div ng-show="success.status" class="notification is-success">
+            <button class="delete" ng-click="reset()"></button>
+            {{success.msg}}
         </div>
 
     </div>

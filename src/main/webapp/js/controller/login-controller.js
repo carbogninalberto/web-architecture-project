@@ -1,4 +1,66 @@
 routerApp.controller('loginViewController',
-    function($scope, $rootScope) {
-        //$rootScope.showNavBar = false;
+    function($scope, $rootScope, $http, $location, $timeout) {
+        $scope.error = {
+            status: false,
+            msg: ""
+        };
+        $scope.success = {
+            status: false,
+            msg: ""
+        };
+        $scope.utente = {};
+
+        $scope.reset = function () {
+            $scope.error = {
+                status: false,
+                msg: ""
+            }
+            $scope.success = {
+                status: false,
+                msg: ""
+            }
+        }
+
+        $scope.login = function () {
+            // resetting error box
+            $scope.reset();
+
+            $http({
+                method: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '/AssociazioneSportiva-1.0/login',
+                data: {
+                    email: $scope.utente.email,
+                    name: $scope.utente.name,
+                    password: $scope.utente.password
+                },
+                processData: false
+            }).then(function success(response) {
+                if (response.status == 200) {
+                    $scope.success = {
+                        status: true,
+                        msg: response.data.msg
+                    }
+
+                    $rootScope.sessionInfo.logged = true;
+                    $rootScope.sessionInfo.utente = response.data.utente;
+
+                    // redirect after some seconds
+                    $timeout(function () {
+                        $location.url('/AssociazioneSportiva-1.0');
+                    }, 2000);
+
+                } else {
+                    $scope.error = {
+                        status: true,
+                        msg: response.data.msg
+                    }
+                }
+            }, function error(response) {
+                alert("Error on Callback" + response.data.msg);
+            }).catch(function (e) {
+                alert(e);
+            });
+        }
+
     });

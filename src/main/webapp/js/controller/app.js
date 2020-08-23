@@ -5,6 +5,12 @@ routerApp.controller('appController',
         $scope.appName = "Sportif";
         // show-hide homepage nav-bar
         $rootScope.showNavBar = true;
+        $rootScope.sessionInfo = {
+            logged: false,
+            utente: {
+                admin: false
+            }
+        };
     });
 routerApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
@@ -19,6 +25,10 @@ routerApp.config(['$routeProvider', function($routeProvider) {
     when('/signup', {
         templateUrl: 'views/signup-template.html',
         controller: 'signupViewController'
+    }).
+    when('/dashboard', {
+        templateUrl: 'views/signup-template.html',
+        controller: 'dashboardViewController'
     }).
     otherwise({
         redirectTo: '/'

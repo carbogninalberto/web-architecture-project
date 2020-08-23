@@ -1,5 +1,5 @@
 <!-- signup-template.html -->
-<section class="section showcase-bg center-box" style="background-image: url('img/background_2.jpg')">
+<section ng-controller="signupViewController" class="section showcase-bg center-box" style="background-image: url('img/background_2.jpg')">
     <div class="container is-box-log center-box" style="background-color: white; text-align: left">
 
         <p class="title is-2 is-spaced" style="text-align: left; font-family: 'Arial'">Signup</p>
@@ -7,14 +7,14 @@
         <div class="field">
             <label class="label">Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="e.g Alberto Carbognin">
+                <input ng-model="utente.name" class="input" type="text" placeholder="e.g Alberto Carbognin">
             </div>
         </div>
 
         <div class="field">
             <label class="label">Email</label>
             <div class="control">
-                <input class="input" type="email" placeholder="e.g. alberto.carbognin@gmail.com">
+                <input ng-model="utente.email" class="input" type="email" placeholder="e.g. alberto.carbognin@gmail.com">
             </div>
         </div>
 
@@ -22,18 +22,34 @@
         <div class="field">
             <label class="label">Password</label>
             <p class="control">
-                <input class="input" type="password" placeholder="Password">
-    </span>
+                <input ng-model="utente.password" class="input" type="password" placeholder="Password">
             </p>
         </div>
+        <div class="field">
+            <label class="label">Conferma Password</label>
+            <p class="control">
+                <input ng-model="utente.confirm" class="input" type="password" placeholder="Password">
+            </p>
+        </div>
+
         <div style="text-align: right">
             <div class="field">
                 <p class="control">
-                    <button class="button custom">
+                    <button class="button custom" ng-click="signup()">
                         Sign up
                     </button>
                 </p>
             </div>
+        </div>
+
+        <div ng-show="error.status" class="notification is-danger">
+            <button class="delete" ng-click="reset()"></button>
+            {{error.msg}}
+        </div>
+
+        <div ng-show="success.status" class="notification is-success">
+            <button class="delete" ng-click="reset()"></button>
+            {{success.msg}}
         </div>
 
 

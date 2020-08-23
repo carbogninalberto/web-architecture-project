@@ -1,4 +1,5 @@
 routerApp.controller('mainViewController',
-    function($scope) {
+    function($scope, $rootScope) {
+
 
     });
