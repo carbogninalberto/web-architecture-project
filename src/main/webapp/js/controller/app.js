@@ -27,7 +27,7 @@ routerApp.config(['$routeProvider', function($routeProvider) {
         controller: 'signupViewController'
     }).
     when('/dashboard', {
-        templateUrl: 'views/signup-template.html',
+        templateUrl: 'views/dashboard-template.html',
         controller: 'dashboardViewController'
     }).
     otherwise({

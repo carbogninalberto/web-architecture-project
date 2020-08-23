@@ -1,5 +1,7 @@
 routerApp.controller('loginViewController',
     function($scope, $rootScope, $http, $location, $timeout) {
+        $rootScope.showNavBar = true;
+
         $scope.error = {
             status: false,
             msg: ""
@@ -46,7 +48,7 @@ routerApp.controller('loginViewController',
 
                     // redirect after some seconds
                     $timeout(function () {
-                        $location.url('/AssociazioneSportiva-1.0');
+                        $location.url('/dashboard');
                     }, 2000);
 
                 } else {

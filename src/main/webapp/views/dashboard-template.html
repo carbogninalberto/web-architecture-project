@@ -1,38 +1,6 @@
 <!-- dashboard-template.html -->
-<div ng-controller="dashboardViewController">
-    <h2>Welcome, {{$rootScope.sessionInfo.utente.name}}</h2>
-    <ul class="steps is-narrow is-medium is-centered has-content-centered">
-        <li class="steps-segment">
-            <a href="#" class="has-text-dark">
-          <span class="steps-marker">
-            <span class="icon">
-              <i class="fa fa-user"></i>
-            </span>
-          </span>
-                <div class="steps-content">
-                    <p class="heading">User Information</p>
-                </div>
-            </a>
-        </li>
-        <li class="steps-segment is-active has-gaps">
-        <span class="steps-marker is-hollow">
-          <span class="icon">
-            <i class="fa fa-usd"></i>
-          </span>
-        </span>
-            <div class="steps-content">
-                <p class="heading">Payment</p>
-            </div>
-        </li>
-        <li class="steps-segment">
-        <span class="steps-marker is-hollow">
-          <span class="icon">
-            <i class="fa fa-check"></i>
-          </span>
-        </span>
-            <div class="steps-content">
-                <p class="heading">Confirmation</p>
-            </div>
-        </li>
-    </ul>
-</div>
+<section ng-controller="dashboardViewController" class="section center-box">
+    <div class="container" style="background-color: white">
+        <p class="title is-1">Welcome, {{$root.sessionInfo.utente.name}}</p>
+    </div>
+</section>

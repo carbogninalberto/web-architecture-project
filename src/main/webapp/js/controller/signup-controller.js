@@ -1,5 +1,7 @@
 routerApp.controller('signupViewController',
-    function($scope, $http) {
+    function($scope, $http, $rootScope) {
+
+        $rootScope.showNavBar = true;
         $scope.error = {
             status: false,
             msg: ""
