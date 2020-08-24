@@ -1,6 +1,47 @@
 <!-- dashboard-template.html -->
-<section ng-controller="dashboardViewController" class="section center-box">
-    <div class="container" style="background-color: white">
-        <p class="title is-1">Welcome, {{$root.sessionInfo.utente.name}}</p>
+<!-- regular user view -->
+<div class="columns" ng-if="$root.sessionInfo.logged && !$root.sessionInfo.utente.admin ">
+    <div class="column is-one-third">
+        <aside class="menu margin-50">
+            <p class="menu-label">
+                General
+            </p>
+            <ul class="menu-list">
+                <li><a>New Module</a></li>
+                <li><a>Profile</a></li>
+            </ul>
+            <p class="menu-label">
+                Pending
+            </p>
+            <ul class="menu-list">
+                <li><a>Modules</a></li>
+            </ul>
+        </aside>
     </div>
-</section>
+    <div class="column">
+        <section ng-controller="dashboardViewController" class="section center-box">
+            <div class="container" style="background-color: white">
+                <p class="title is-1">Welcome, {{$root.sessionInfo.utente.name}}</p>
+                <p>
+                    On the left panel, click on <i>General -> New Module</i> to register to a course.
+                </p>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- admin user view -->
+
+<!-- not authorized view -->
+<div ng-if="!$root.sessionInfo.logged">
+    <section class="section center-box">
+        <div class="container" style="background-color: white">
+            <p class="title is-1">Sorry, you can't access this resource.</p>
+            <p>click here to return to <a href="/">homepage</a>.</p>
+        </div>
+    </section>
+</div>
+
+
+
+
+

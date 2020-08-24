@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/login"})
+@WebServlet(urlPatterns = {"/login", "session/delete"})
 public class SessionServlet extends HttpServlet implements Logging {
 
     private UtenteBean utenteBean;
@@ -39,6 +39,7 @@ public class SessionServlet extends HttpServlet implements Logging {
         // define response type
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
+        getLogger().info(this.getServletName() + " login user");
 
         try {
             getBean();
@@ -66,6 +67,36 @@ public class SessionServlet extends HttpServlet implements Logging {
                 String msgJson = mapper.writeValueAsString(msg);
                 out.println(msgJson);
             }
+        } catch (Exception e) {
+            getLogger().warning("Exception: " + e.getMessage());
+
+            // response
+            resp.setStatus(500);
+            Response msg = new Response(e.getMessage());
+            String msgJson = mapper.writeValueAsString(msg);
+            out.println(msgJson);
+        } finally {
+            out.close();
+            out.flush();
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // define response type
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+        getLogger().info(this.getServletName() + " delete HttpSession");
+
+        try {
+            HttpSession session = req.getSession(false);
+            if (session != null)
+                session.invalidate();
+
+            resp.setStatus(200);
+            Response msg = new Response("session removed.");
+            String msgJson = mapper.writeValueAsString(msg);
+            out.println(msgJson);
         } catch (Exception e) {
             getLogger().warning("Exception: " + e.getMessage());
 

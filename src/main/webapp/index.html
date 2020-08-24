@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <body ng-app="app" ng-controller="appController">
-<nav ng-if="$root.showNavBar" class="navbar" role="navigation" aria-label="main navigation">
+<nav ng-show="!$root.hideAll" class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="#!">
             <span class="circle"><span class="circle"
@@ -26,7 +26,7 @@
         </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div ng-if="$root.showNavBar" id="navbarBasic" class="navbar-menu">
 
         <div class="navbar-end">
             <div class="navbar-item">
@@ -41,16 +41,29 @@
             </div>
         </div>
     </div>
+
+    <div ng-if="!$root.showNavBar" id="navbarLogged" class="navbar-menu">
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button custom" ng-click="logout()">
+                        <strong>Logout</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </nav>
 
 <div ng-view></div>
 
-<footer class="footer">
+<footer ng-show="!$root.hideAll" class="footer">
     <div class="content has-text-centered">
 
         <p>
             <strong>Sportif </strong>(Associazione Sportiva) by <a href="https://github.com/carbogninalberto">Alberto
-            Carbognin</a> - <strong>Web Architectures</strong> project course - <strong>unsplash</strong> (<a href="https://unsplash.com/">images</a>)
+            Carbognin</a> - <strong>Web Architectures</strong> project - <strong>unsplash</strong> (<a href="https://unsplash.com/">images</a>)
             <br>
             &bull; <a href="#!abouts"> About </a> - <a href="#!abouts"> Privacy </a> &bull;
         </p>

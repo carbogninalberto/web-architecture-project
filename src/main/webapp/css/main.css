@@ -49,6 +49,10 @@
     margin: 20px;
 }
 
+.menu.margin-50 {
+    margin: 50px;
+}
+
 #center-titles {
     display: flex;
     justify-content: center;
