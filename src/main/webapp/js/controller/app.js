@@ -6,12 +6,17 @@ routerApp.controller('appController',
         // show-hide homepage nav-bar
         $rootScope.showNavBar = true;
         $rootScope.hideAll = false;
-            $rootScope.sessionInfo = {
+
+        $rootScope.sessionInfo = {
             logged: false,
             utente: {
                 admin: false
             }
         };
+
+        if (localStorage.getItem('sessionInfo') != null)
+            $rootScope.sessionInfo = JSON.parse(localStorage.getItem('sessionInfo'));
+
         $scope.resetNav = function () {
             $rootScope.showNavBar = true;
             $rootScope.hideAll = false;

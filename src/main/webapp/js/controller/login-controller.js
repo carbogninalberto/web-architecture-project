@@ -46,6 +46,9 @@ routerApp.controller('loginViewController',
                     $rootScope.sessionInfo.logged = true;
                     $rootScope.sessionInfo.utente = response.data.utente;
 
+                    //save to localStorage
+                    localStorage.setItem('sessionInfo', JSON.stringify($rootScope.sessionInfo));
+
                     // redirect after some seconds
                     $timeout(function () {
                         $location.url('/dashboard');
