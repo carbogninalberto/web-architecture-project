@@ -1,6 +1,6 @@
 var routerApp = angular.module('app', ['ngRoute']);
 routerApp.controller('appController',
-    function($scope, $rootScope, $http, $timeout, $location) {
+    function($scope, $rootScope, $http, $timeout, $location, $route) {
         // logo-name
         $scope.appName = "Sportif";
         // show-hide homepage nav-bar
@@ -12,6 +12,11 @@ routerApp.controller('appController',
                 admin: false
             }
         };
+        $scope.resetNav = function () {
+            $rootScope.showNavBar = true;
+            $rootScope.hideAll = false;
+            $location.url('/');
+        }
         $scope.logout = function () {
 
             $http({

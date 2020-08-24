@@ -1,6 +1,6 @@
 <!-- dashboard-template.html -->
 <!-- regular user view -->
-<div class="columns" ng-if="$root.sessionInfo.logged && !$root.sessionInfo.utente.admin ">
+<div ng-controller="dashboardViewController" class="columns" ng-if="$root.sessionInfo.logged && !$root.sessionInfo.utente.admin ">
     <div class="column is-one-third">
         <aside class="menu margin-50">
             <p class="menu-label">
@@ -19,7 +19,7 @@
         </aside>
     </div>
     <div class="column">
-        <section ng-controller="dashboardViewController" class="section center-box">
+        <section class="section center-box">
             <div class="container" style="background-color: white">
                 <p class="title is-1">Welcome, {{$root.sessionInfo.utente.name}}</p>
                 <p>
@@ -36,7 +36,7 @@
     <section class="section center-box">
         <div class="container" style="background-color: white">
             <p class="title is-1">Sorry, you can't access this resource.</p>
-            <p>click here to return to <a href="#!">homepage</a>.</p>
+            <p>click here to return to <a ng-click="resetNav()">homepage</a>.</p>
         </div>
     </section>
 </div>
