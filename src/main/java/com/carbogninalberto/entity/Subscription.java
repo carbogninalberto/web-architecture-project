@@ -11,16 +11,24 @@ public class Subscription implements Serializable {
     @Id
     @GeneratedValue( strategy= GenerationType.AUTO )
     private int sid;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String last;
+
     @Column(nullable = false)
     private Date born;
+
     @Column(nullable = false)
     private long timestamp;
+
     @Column(nullable = false)
     private float price;
+
+    @Column(nullable = false)
+    private boolean paid;
 
     @ManyToOne
     private SportAssociation association;
@@ -65,5 +73,21 @@ public class Subscription implements Serializable {
 
     public void setAssociation(SportAssociation association) {
         this.association = association;
+    }
+
+    public Utente getUtente() {
+        return utente;
+    }
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 }
