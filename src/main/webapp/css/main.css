@@ -1,9 +1,26 @@
-
-html {
-    height: 100%;
+* {
+    box-sizing: border-box;
 }
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+html,
 body {
-    min-height: 100%;
+    height: 100%;
+    position: relative;
+}
+.main-container {
+    min-height: 100vh; /* will cover the 100% of viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 100px; /* height of your footer */
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .logo {
@@ -59,6 +76,14 @@ body {
 
 .menu.margin-50 {
     margin: 50px;
+}
+
+.left-align {
+    text-align: left;
+}
+
+.margin-p {
+    margin-bottom: 20px;
 }
 
 #center-titles {

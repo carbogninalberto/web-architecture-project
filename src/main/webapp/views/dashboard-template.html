@@ -1,30 +1,155 @@
 <!-- dashboard-template.html -->
 <!-- regular user view -->
 <div ng-controller="dashboardViewController" class="columns" ng-if="$root.sessionInfo.logged && !$root.sessionInfo.utente.admin ">
-    <div class="column is-one-third">
+    <div class="column is-one-fifth">
         <aside class="menu margin-50">
             <p class="menu-label">
                 General
             </p>
             <ul class="menu-list">
-                <li><a>New Module</a></li>
-                <li><a>Profile</a></li>
+                <li><a ng-class="{'is-active': pages.general.profile.status}" ng-click="changePage('general.profile')">Profile</a></li>
             </ul>
             <p class="menu-label">
-                Pending
+                Modules
             </p>
             <ul class="menu-list">
-                <li><a>Modules</a></li>
+                <li><a ng-class="{'is-active': pages.modules.list.status}" ng-click="changePage('modules.list')">List</a></li>
+                <li><a ng-class="{'is-active': pages.modules.newModule.status}" ng-click="changePage('modules.newModule')">New Module</a></li>
             </ul>
         </aside>
     </div>
     <div class="column">
-        <section class="section center-box">
+        <section ng-show="pages.general.profile.status" class="section center-box">
             <div class="container" style="background-color: white">
                 <p class="title is-1">Welcome, {{$root.sessionInfo.utente.name}}</p>
-                <p>
+                <p class="margin-p">
                     On the left panel, click on <i>General -> New Module</i> to register to a course.
                 </p>
+                <p class="title is-4">Personal Information</p>
+                <p class="left-align margin-p">
+                    <b>Name:</b> {{$root.sessionInfo.utente.name}}<br>
+                    <b>Email:</b> {{$root.sessionInfo.utente.email}}<br>
+                    <b>Type:</b> {{($root.sessionInfo.utente.admin ? 'Administrator' : 'Regular User')}}<br>
+                </p>
+            </div>
+        </section>
+        <section ng-show="pages.modules.list.status" class="section center-box">
+            <div class="container">
+                <p class="title is-4">Compiled Modules</p>
+                <div class="table-container">
+                    <table class="table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead>
+                        <tr>
+                            <th>Module</th>
+                            <th>Team</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>title on row</th>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section ng-show="pages.modules.newModule.status" class="section center-box">
+            <div class="container">
+                <p class="title is-4">New Module</p>
+                <div style="text-align: center">
+                    <nav class="pagination" role="navigation" aria-label="pagination" style="margin-bottom: 25px;">
+
+                        <ul class="pagination-list">
+                            <li>
+                                <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1 Info</a>
+                            </li>
+                            <li>
+                                <a class="pagination-link" aria-label="Goto page 2" disabled>2 Payment</a>
+                            </li>
+                            <li>
+                                <a class="pagination-link" aria-label="Goto page 3" disabled>3 Checkout</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+                <div>
+                    <!-- name and last name -->
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Name:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left">
+                                    <input class="input" type="text" placeholder="Name">
+                                    <span class="icon is-small is-left">
+                                      <i class="fas fa-user"></i>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left has-icons-right">
+                                    <input class="input" type="text" placeholder="Last name" value="">
+                                    <span class="icon is-small is-left">
+                                      <i class="fas fa-user"></i>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- association -->
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Born Date</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field is-narrow" style="margin: 6px 0px 0px 0px;">
+                                <input class="input" type="date" id="start" name="trip-start"
+                                       value="1996-03-24"
+                                       min="1900-01-01" max="2015-01-01">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Term and Conditions</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field is-narrow">
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    I agree to processing personal information.</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <!-- Left empty for spacing -->
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control field is-grouped is-grouped-right">
+                                    <button class="button custom">
+                                        Confirm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
             </div>
         </section>
     </div>

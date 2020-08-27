@@ -17,59 +17,61 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <body ng-app="app" ng-controller="appController">
-<nav ng-show="!$root.hideAll" class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="#!">
-            <span class="circle"><span class="circle"
-                                       style="background-color: darkorange; margin: 6px; border-radius: 30%"></span></span>
-            <span class="logo" width="112" height="25">{{appName}}</span>
-        </a>
-    </div>
+    <div class="main-container">
+        <nav ng-show="!$root.hideAll" class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="#!">
+                <span class="circle"><span class="circle"
+                                           style="background-color: darkorange; margin: 6px; border-radius: 30%"></span></span>
+                    <span class="logo" width="112" height="25">{{appName}}</span>
+                </a>
+            </div>
 
-    <div ng-if="$root.showNavBar" id="navbarBasic" class="navbar-menu">
+            <div ng-if="$root.showNavBar" id="navbarBasic" class="navbar-menu">
 
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button custom" href="#!signup">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light" href="#!login">
-                        Log in
-                    </a>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button custom" href="#!signup">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a class="button is-light" href="#!login">
+                                Log in
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div ng-if="!$root.showNavBar" id="navbarLogged" class="navbar-menu">
+            <div ng-if="!$root.showNavBar" id="navbarLogged" class="navbar-menu">
 
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button custom" ng-click="logout()">
-                        <strong>Logout</strong>
-                    </a>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button custom" ng-click="logout()">
+                                <strong>Logout</strong>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </nav>
+
+        <div ng-view></div>
+
+        <footer ng-show="!$root.hideAll" class="footer">
+            <div class="content has-text-centered">
+
+                <p>
+                    <strong>Sportif </strong>(Associazione Sportiva) by <a href="https://github.com/carbogninalberto">Alberto
+                    Carbognin</a> - <strong>Web Architectures</strong> project - <strong>unsplash</strong> (<a href="https://unsplash.com/">images</a>)
+                    <br>
+                    &bull; <a href="#!abouts"> About </a> - <a href="#!abouts"> Privacy </a> &bull;
+                </p>
+
+
+            </div>
+        </footer>
     </div>
-</nav>
-
-<div ng-view></div>
-
-<footer ng-show="!$root.hideAll" class="footer">
-    <div class="content has-text-centered">
-
-        <p>
-            <strong>Sportif </strong>(Associazione Sportiva) by <a href="https://github.com/carbogninalberto">Alberto
-            Carbognin</a> - <strong>Web Architectures</strong> project - <strong>unsplash</strong> (<a href="https://unsplash.com/">images</a>)
-            <br>
-            &bull; <a href="#!abouts"> About </a> - <a href="#!abouts"> Privacy </a> &bull;
-        </p>
-
-
-    </div>
-</footer>
 </body>
 </html>
