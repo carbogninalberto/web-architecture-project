@@ -12,6 +12,7 @@
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/session/delete</url-pattern>
+        <url-pattern>/subscription/status</url-pattern>
     </filter-mapping>
     
     <filter>

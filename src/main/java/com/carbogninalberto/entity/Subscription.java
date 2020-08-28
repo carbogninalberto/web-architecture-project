@@ -30,9 +30,8 @@ public class Subscription implements Serializable {
     @Column(nullable = false)
     private boolean paid;
 
-    @ManyToOne
-    private SportAssociation association;
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     private Utente utente;
 
     public String getName() {
@@ -65,14 +64,6 @@ public class Subscription implements Serializable {
 
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public SportAssociation getAssociation() {
-        return association;
-    }
-
-    public void setAssociation(SportAssociation association) {
-        this.association = association;
     }
 
     public Utente getUtente() {

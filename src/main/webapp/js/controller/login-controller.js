@@ -30,7 +30,7 @@ routerApp.controller('loginViewController',
             $http({
                 method: 'POST',
                 contentType: "application/json; charset=utf-8",
-                url: '/AssociazioneSportiva-1.0/login',
+                url: $rootScope.url + '/AssociazioneSportiva-1.0/login',
                 data: {
                     email: $scope.utente.email,
                     password: $scope.utente.password

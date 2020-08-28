@@ -13,17 +13,16 @@ routerApp.controller('dashboardViewController',
                 list: {
                     status: false
                 },
-                newModule: {
+            subscription: {
                     status: false
                 }
             }
         };
 
-
         $scope.resetPage = function () {
             $scope.pages.general.profile.status = false;
             $scope.pages.modules.list.status = false;
-            $scope.pages.modules.newModule.status = false;
+            $scope.pages.modules.subscription.status = false;
         };
 
         // page is a string value
@@ -34,9 +33,9 @@ routerApp.controller('dashboardViewController',
             } else if (page === 'modules.list') {
                 $scope.resetPage();
                 $scope.pages.modules.list.status = true;
-            } else if (page === 'modules.newModule') {
+            } else if (page === 'modules.subscription') {
                 $scope.resetPage();
-                $scope.pages.modules.newModule.status = true;
+                $scope.pages.modules.subscription.status = true;
             }
         };
 

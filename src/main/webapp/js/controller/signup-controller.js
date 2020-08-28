@@ -31,7 +31,7 @@ routerApp.controller('signupViewController',
                 $http({
                     method: 'POST',
                     contentType: "application/json; charset=utf-8",
-                    url: '/AssociazioneSportiva-1.0/user/add',
+                    url: $rootScope.url + '/AssociazioneSportiva-1.0/user/add',
                     data: {
                         email: $scope.utente.email,
                         name: $scope.utente.name,

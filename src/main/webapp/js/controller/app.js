@@ -7,6 +7,8 @@ routerApp.controller('appController',
         $rootScope.showNavBar = true;
         $rootScope.hideAll = false;
 
+        $rootScope.url = "";
+
         $rootScope.sessionInfo = {
             logged: false,
             utente: {
@@ -27,7 +29,7 @@ routerApp.controller('appController',
             $http({
                 method: 'DELETE',
                 contentType: "application/json; charset=utf-8",
-                url: '/AssociazioneSportiva-1.0/session/delete',
+                url: $rootScope.url + '/AssociazioneSportiva-1.0/session/delete',
                 processData: false
             }).then(function success(response) {
                 if (response.status == 200) {
