@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/login", "session/delete"})
+@WebServlet(urlPatterns = {"/login", "/session/delete"})
 public class SessionServlet extends HttpServlet implements Logging {
 
     private UtenteBean utenteBean;
@@ -52,6 +52,9 @@ public class SessionServlet extends HttpServlet implements Logging {
             // business logic
             UserInfo userInfo = utenteBean.checkPasswordUtente(utente);
             if (userInfo.isLogged()) {
+                // updating admin information
+                utente.setAdmin(utenteBean.getUtente(utente.getEmail()).getAdmin());
+
                 HttpSession session = req.getSession(true);
                 session.setAttribute("auth", utente.getEmail());
                 session.setAttribute("admin", utente.getAdmin());

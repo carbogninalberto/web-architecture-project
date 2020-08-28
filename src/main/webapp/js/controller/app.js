@@ -1,6 +1,6 @@
-var routerApp = angular.module('app', ['ngRoute']);
+var routerApp = angular.module('app', ['ngRoute', 'ngCookies']);
 routerApp.controller('appController',
-    function($scope, $rootScope, $http, $timeout, $location, $route) {
+    function($scope, $rootScope, $http, $timeout, $location, $route, $cookies, $window) {
         // logo-name
         $scope.appName = "Sportif";
         // show-hide homepage nav-bar
@@ -34,6 +34,9 @@ routerApp.controller('appController',
 
                     $rootScope.sessionInfo.logged = false;
                     $rootScope.sessionInfo.utente = {admin: false};
+
+                    //$cookies.remove("");
+                    $window.localStorage.clear();
 
                     // redirect after some seconds
                     $timeout(function () {

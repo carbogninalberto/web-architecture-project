@@ -13,17 +13,23 @@ public class Utente implements Serializable {
     @GeneratedValue( strategy= GenerationType.AUTO )
     @Column(nullable = false)
     private int uid;
+
     @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String password;
+
     @JsonIgnore
     @Column(nullable = false)
     private String salt;
+
     @Column(nullable = false)
     private boolean admin;
+
     @JsonIgnore
     @Column(nullable = false)
     private long timestamp;
@@ -74,4 +80,7 @@ public class Utente implements Serializable {
         return admin;
     }
 
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 }
