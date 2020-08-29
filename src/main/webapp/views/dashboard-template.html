@@ -22,7 +22,7 @@
             <div class="container" style="background-color: white">
                 <p class="title is-1">Welcome, {{$root.sessionInfo.utente.name}}</p>
                 <p class="margin-p">
-                    On the left panel, click on <i>General -> New Module</i> to register to a course.
+                    On the left panel, click on <i>Modules -> Subscription</i> to register to a course.
                 </p>
                 <p class="title is-4">Personal Information</p>
                 <p class="left-align margin-p">
@@ -62,20 +62,20 @@
 
                         <ul class="pagination-list">
                             <li>
-                                <a class="pagination-link is-current" aria-label="Page 1" aria-current="page" ng-disabled="subscriptionStatus == 'INFORMATION'">1 Information</a>
+                                <a class="pagination-link" ng-class="{'is-current': subscriptionStatus == 'INFORMATION'}" aria-label="Page 1" aria-current="page" ng-disabled="subscriptionStatus != 'INFORMATION'">1 Information</a>
                             </li>
                             <li>
-                                <a class="pagination-link" aria-label="Goto page 2" ng-disabled="subscriptionStatus == 'PAYMENT'">2 Payment</a>
+                                <a class="pagination-link" ng-class="{'is-current': subscriptionStatus == 'PAYMENT'}" aria-label="Goto page 2" ng-disabled="subscriptionStatus != 'PAYMENT'">2 Payment</a>
                             </li>
                             <li>
-                                <a class="pagination-link" aria-label="Goto page 3" ng-disabled="subscriptionStatus == 'CONFIRMED'">3 Confirmed</a>
+                                <a class="pagination-link" ng-class="{'is-current': subscriptionStatus == 'CONFIRMED'}" aria-label="Goto page 3" ng-disabled="subscriptionStatus != 'CONFIRMED'">3 Confirmed</a>
                             </li>
                         </ul>
                     </nav>
                 </div>
 
 
-                <div>
+                <div ng-show="subscriptionStatus == 'INFORMATION'">
                     <!-- name and last name -->
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
@@ -84,7 +84,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <p class="control is-expanded has-icons-left">
-                                    <input class="input" type="text" placeholder="Name">
+                                    <input ng-model="subscriptionInfo.name" class="input" type="text" placeholder="Name">
                                     <span class="icon is-small is-left">
                                       <i class="fas fa-user"></i>
                                     </span>
@@ -92,7 +92,7 @@
                             </div>
                             <div class="field">
                                 <p class="control is-expanded has-icons-left has-icons-right">
-                                    <input class="input" type="text" placeholder="Last name" value="">
+                                    <input ng-model="subscriptionInfo.last" class="input" type="text" placeholder="Last name" value="">
                                     <span class="icon is-small is-left">
                                       <i class="fas fa-user"></i>
                                     </span>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="field-body">
                             <div class="field is-narrow" style="margin: 6px 0px 0px 0px;">
-                                <input class="input" type="date" id="start" name="trip-start"
+                                <input ng-model="subscriptionInfo.date" class="input" type="date" name="trip-start"
                                        value="1996-03-24"
                                        min="1900-01-01" max="2015-01-01">
                             </div>
@@ -122,14 +122,12 @@
                         <div class="field-body">
                             <div class="field is-narrow">
                                 <label class="checkbox">
-                                    <input type="checkbox">
+                                    <input type="checkbox" ng-model="subscriptionInfo.privacy">
                                     I agree to processing personal information.</a>
                                 </label>
                             </div>
                         </div>
                     </div>
-
-
 
                     <div class="field is-horizontal">
                         <div class="field-label">
@@ -138,23 +136,64 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control field is-grouped is-grouped-right">
-                                    <button class="button custom">
-                                        Confirm
+                                    <button class="button custom" ng-click="addSubscription()" ng-disabled="subscriptionInfo.privacy != 1">
+                                        Next
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div ng-show="subscriptionStatus == 'PAYMENT'">
+                    <div class="field is-horizontal">
+                        <p>The price of subscription is <b>23,50€</b>!</p>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Select Payment Method:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="control">
+                                <label class="radio" ng-repeat="gateway in gateways">
+                                    <input type="radio" name="payment" ng-model="paymentGateway.selected" ng-value="gateway.name" ng-checked="gateway.name === paymentGateway.selected">
+                                    {{gateway.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <!-- Left empty for spacing -->
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control field is-grouped is-grouped-right">
+                                    <button class="button custom" ng-click="setSubscriptionStatus()" ng-disabled="paymentGateway.selected == null">
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div ng-show="subscriptionStatus == 'CONFIRMED'">
+                    <p style="font-size: 30px">
+                        Your Subscription is confirmed
+                        <span class="icon has-text-success">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </p>
                 </div>
 
             </div>
         </section>
     </div>
 </div>
+
 <!-- admin user view -->
-<div ng-controller="dashboardViewController" class="columns" ng-if="$root.sessionInfo.logged && !$root.sessionInfo.utente.admin ">
+<div ng-if="$root.sessionInfo.logged && $root.sessionInfo.utente.admin" ng-controller="dashboardViewController" class="columns" >
     <div class="column is-one-fifth">
         <aside class="menu margin-50">
             <p class="menu-label">
@@ -168,7 +207,6 @@
             </p>
             <ul class="menu-list">
                 <li><a ng-class="{'is-active': pages.modules.list.status}" ng-click="changePage('modules.list')">List</a></li>
-                <li><a ng-class="{'is-active': pages.modules.subscription.status}" ng-click="changePage('modules.subscription')">New Module</a></li>
             </ul>
         </aside>
     </div>
@@ -176,9 +214,6 @@
         <section ng-show="pages.general.profile.status" class="section center-box">
             <div class="container" style="background-color: white">
                 <p class="title is-1">Welcome, {{$root.sessionInfo.utente.name}}</p>
-                <p class="margin-p">
-                    On the left panel, click on <i>Modules -> Subscription</i> to subscribe.
-                </p>
                 <p class="title is-4">Personal Information</p>
                 <p class="left-align margin-p">
                     <b>Name:</b> {{$root.sessionInfo.utente.name}}<br>
@@ -188,122 +223,28 @@
             </div>
         </section>
         <section ng-show="pages.modules.list.status" class="section center-box">
-            <div class="container">
+            <div ng-controller="subscriptionController" class="container">
                 <p class="title is-4">Compiled Modules</p>
                 <div class="table-container">
-                    <table class="table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <table class="table table is-striped is-narrow is-hoverable is-fullwidth">
                         <thead>
                         <tr>
-                            <th>Module</th>
-                            <th>Team</th>
+                            <th>Subscription Modules</th>
+                            <th>Born Date</th>
+                            <th>Price</th>
+                            <th>Paid</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th>title on row</th>
-                            <td></td>
+                        <tr ng-repeat="subscription in subscriptions">
+                            <td>{{subscription.name}} {{subscription.lastName}}</td>
+                            <td>{{subscription.born | date:"dd/MM/yyyy"}}</td>
+                            <td>{{subscription.price}} €</td>
+                            <td>{{subscription.paid}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </section>
-
-        <section ng-show="pages.modules.subscription.status" class="section center-box">
-            <div class="container">
-                <p class="title is-4">New Module</p>
-                <div style="text-align: center">
-                    <nav class="pagination" role="navigation" aria-label="pagination" style="margin-bottom: 25px;">
-
-                        <ul class="pagination-list">
-                            <li>
-                                <a class="pagination-link is-current" aria-label="Page 1" aria-current="page" ng-disabled="subscriptionStatus == 'INFORMATION'">1 Info</a>
-                            </li>
-                            <li>
-                                <a class="pagination-link" aria-label="Goto page 2" ng-disabled="subscriptionStatus == 'PAYMENT'">2 Payment</a>
-                            </li>
-                            <li>
-                                <a class="pagination-link" aria-label="Goto page 3" ng-disabled="subscriptionStatus == 'CONFIRMED'">3 Checkout</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-
-
-                <div>
-                    <!-- name and last name -->
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label">Name:</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <p class="control is-expanded has-icons-left">
-                                    <input class="input" type="text" placeholder="Name">
-                                    <span class="icon is-small is-left">
-                                      <i class="fas fa-user"></i>
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="field">
-                                <p class="control is-expanded has-icons-left has-icons-right">
-                                    <input class="input" type="text" placeholder="Last name" value="">
-                                    <span class="icon is-small is-left">
-                                      <i class="fas fa-user"></i>
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- association -->
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label">Born Date</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field is-narrow" style="margin: 6px 0px 0px 0px;">
-                                <input class="input" type="date" id="start" name="trip-start"
-                                       value="1996-03-24"
-                                       min="1900-01-01" max="2015-01-01">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field is-horizontal">
-                        <div class="field-label is-normal">
-                            <label class="label">Term and Conditions</label>
-                        </div>
-                        <div class="field-body">
-                            <div class="field is-narrow">
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                    I agree to processing personal information.</a>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="field is-horizontal">
-                        <div class="field-label">
-                            <!-- Left empty for spacing -->
-                        </div>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control field is-grouped is-grouped-right">
-                                    <button class="button custom">
-                                        Confirm
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
             </div>
         </section>
     </div>

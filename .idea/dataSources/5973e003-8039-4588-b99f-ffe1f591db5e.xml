@@ -18,93 +18,127 @@
     <schema id="11" parent="1" name="SYSIBM"/>
     <schema id="12" parent="1" name="SYSPROC"/>
     <schema id="13" parent="1" name="SYSSTAT"/>
-    <table id="14" parent="2" name="SPORTASSOCIATION"/>
+    <table id="14" parent="2" name="SUBSCRIPTION"/>
     <table id="15" parent="2" name="UTENTE"/>
-    <column id="16" parent="14" name="ID">
+    <column id="16" parent="14" name="SID">
       <Position>1</Position>
       <DataType>INTEGER|4s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
     </column>
-    <column id="17" parent="14" name="NAME">
+    <column id="17" parent="14" name="BORN">
       <Position>2</Position>
-      <DataType>VARCHAR(255)|12s</DataType>
+      <DataType>TIMESTAMP|93s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="18" parent="14" name="UTENTE_UID">
-      <Position>3</Position>
-      <DataType>INTEGER|4s</DataType>
-    </column>
-    <index id="19" parent="14" name="SQL200823014005880">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>ID</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <index id="20" parent="14" name="SQL200823014005950">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>UTENTE_UID</ColNames>
-    </index>
-    <key id="21" parent="14" name="SQL200823014005880">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>ID</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="22" parent="14" name="FK7D2F6Y0AOMGCVXF2BSQEEDGTF">
-      <ColNames>UTENTE_UID</ColNames>
-      <RefTableName>UTENTE</RefTableName>
-      <RefKeyName>SQL200823014005900</RefKeyName>
-      <RefColNames>UID</RefColNames>
-    </foreign-key>
-    <column id="23" parent="15" name="UID">
-      <Position>1</Position>
-      <DataType>INTEGER|4s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="24" parent="15" name="ADMIN">
-      <Position>2</Position>
-      <DataType>BOOLEAN|16s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="25" parent="15" name="EMAIL">
+    <column id="18" parent="14" name="LAST_NAME">
       <Position>3</Position>
       <DataType>VARCHAR(255)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="26" parent="15" name="NAME">
+    <column id="19" parent="14" name="NAME">
       <Position>4</Position>
       <DataType>VARCHAR(255)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="27" parent="15" name="PASSWORD">
+    <column id="20" parent="14" name="PAID">
       <Position>5</Position>
-      <DataType>VARCHAR(255)|12s</DataType>
+      <DataType>BOOLEAN|16s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="28" parent="15" name="SALT">
+    <column id="21" parent="14" name="PRICE">
       <Position>6</Position>
-      <DataType>VARCHAR(255)|12s</DataType>
+      <DataType>DOUBLE|8s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="29" parent="15" name="TIMESTAMP">
+    <column id="22" parent="14" name="TIMESTAMP">
       <Position>7</Position>
       <DataType>BIGINT|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="30" parent="15" name="SQL200823014005900">
+    <column id="23" parent="14" name="UTENTE_ID">
+      <Position>8</Position>
+      <DataType>INTEGER|4s</DataType>
+    </column>
+    <index id="24" parent="14" name="SQL200829001001220">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>SID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="25" parent="14" name="UK_R4R79LISFJQY4TC8NEXFHACE6">
+      <ColNames>UTENTE_ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="26" parent="14" name="SQL200829001001330">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>UTENTE_ID</ColNames>
+    </index>
+    <key id="27" parent="14" name="SQL200829001001220">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>SID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="28" parent="14" name="UK_R4R79LISFJQY4TC8NEXFHACE6">
+      <ColNames>UTENTE_ID</ColNames>
+    </key>
+    <foreign-key id="29" parent="14" name="FK4YNAABHDHKI8661D7O8X2WOTC">
+      <ColNames>UTENTE_ID</ColNames>
+      <RefTableName>UTENTE</RefTableName>
+      <RefKeyName>SQL200829001001260</RefKeyName>
+      <RefColNames>UID</RefColNames>
+    </foreign-key>
+    <column id="30" parent="15" name="UID">
+      <Position>1</Position>
+      <DataType>INTEGER|4s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="15" name="ADMIN">
+      <Position>2</Position>
+      <DataType>BOOLEAN|16s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="32" parent="15" name="EMAIL">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="15" name="NAME">
+      <Position>4</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="15" name="PASSWORD">
+      <Position>5</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="15" name="SALT">
+      <Position>6</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="15" name="TIMESTAMP">
+      <Position>7</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="37" parent="15" name="SQL200829001001260">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>UID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="31" parent="15" name="SQL200823014005930">
+    <index id="38" parent="15" name="SQL200829001001310">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>EMAIL</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="32" parent="15" name="SQL200823014005900">
+    <key id="39" parent="15" name="SQL200829001001260">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>UID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="33" parent="15" name="SQL200823014005930">
+    <key id="40" parent="15" name="SQL200829001001310">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>EMAIL</ColNames>
     </key>
