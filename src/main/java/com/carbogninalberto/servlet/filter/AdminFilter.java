@@ -27,6 +27,7 @@ public class AdminFilter implements Filter, Logging {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession(false);
 
+        // logging
         getLogger().info("Checking Admin filter");
 
         if (null == session || !(Boolean) session.getAttribute("admin")) {

@@ -1,4 +1,4 @@
-package com.carbogninalberto.util;
+package com.carbogninalberto.util.response;
 
 import com.carbogninalberto.entity.Utente;
 
@@ -10,7 +10,6 @@ public class ResponseUser extends Response implements Serializable {
     public ResponseUser(String msg, Utente utente) {
         super(msg);
         this.utente = utente;
-        hidePassword();
     }
 
     public Utente getUtente() {
@@ -21,7 +20,4 @@ public class ResponseUser extends Response implements Serializable {
         this.utente = utente;
     }
 
-    public void hidePassword() {
-        this.utente.setPassword(null);
-    }
 }

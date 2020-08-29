@@ -1,12 +1,14 @@
 package com.carbogninalberto.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Utente implements Serializable {
 
     @Id
@@ -82,5 +84,25 @@ public class Utente implements Serializable {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

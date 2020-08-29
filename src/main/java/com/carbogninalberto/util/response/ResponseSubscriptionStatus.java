@@ -1,4 +1,4 @@
-package com.carbogninalberto.util;
+package com.carbogninalberto.util.response;
 
 import java.io.Serializable;
 

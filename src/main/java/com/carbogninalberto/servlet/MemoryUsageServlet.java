@@ -1,56 +1,45 @@
-package com.carbogninalberto.servlet.user;
+package com.carbogninalberto.servlet;
 
-import com.carbogninalberto.entity.Utente;
 import com.carbogninalberto.itf.Logging;
-import com.carbogninalberto.util.InitialContext;
 import com.carbogninalberto.util.response.Response;
+import com.carbogninalberto.util.response.ResponseRealTime;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/user", "/user/add"})
-public class UtentiServlet extends HttpServlet implements Logging {
+@WebServlet(urlPatterns = {"/memory-usage"})
+public class MemoryUsageServlet extends HttpServlet implements Logging {
 
     // Jackson Mapper
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public void init() throws ServletException {
-        try {
-            InitialContext.main();
-        } catch (Exception e) {
-            getLogger().severe(e.toString());
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // define response type
         resp.setContentType("application/json");
+        // define writer
         PrintWriter out = resp.getWriter();
 
-        try {
-            // Obtaining the Body of the request
-            BufferedReader body = req.getReader();
-            // read the buffer and converting it to object
-            Utente utente = mapper.readValue(body.lines().collect(Collectors.joining()), Utente.class);
+        // logging
+        getLogger().info(this.getServletName() + " real time memory usage data.");
 
-            // Business logic
-            InitialContext.utenteBean.addUtente(utente);
+        // business logic
+        try {
+            // getting usage data
+            long usage = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
             // response
             resp.setStatus(200);
-            Response msg = new Response("Success! Click on Login now!");
+            ResponseRealTime msg = new ResponseRealTime("real time memory usage.", usage);
             String msgJson = mapper.writeValueAsString(msg);
             out.println(msgJson);
+
         } catch (Exception e) {
+            // logging
             getLogger().warning("Exception: " + e.getMessage());
 
             // response

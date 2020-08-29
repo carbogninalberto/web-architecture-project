@@ -1,10 +1,10 @@
-package com.carbogninalberto.util;
+package com.carbogninalberto.util.response;
 
 import java.io.Serializable;
 
 public class Response implements Serializable {
-    private String msg;
 
+    private String msg;
 
     public Response(String msg) {
         this.msg = msg;
