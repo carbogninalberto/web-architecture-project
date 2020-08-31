@@ -114,8 +114,13 @@ routerApp.controller('subscriptionController',
             });
         };
 
-        $scope.getSubscriptions();
-        $scope.getSubscriptionStatus();
+        if ($rootScope.sessionInfo.utente.admin) {
+            $scope.getSubscriptions();
+        } else {
+            $scope.getSubscriptionStatus();
+        }
+
+
 
 
     });
